@@ -2,10 +2,10 @@ import numpy as np
 import cv2
 
 # Clasificador de reconocimiento facial // La ruta que completa es la ruta de la nueva carpeta que creó
-faceCascade = cv2.CascadeClassifier(r'C:\Users\jruiz\Documents\Materias-ago-dic\ia-sistemas\opencv-master\opencv-master\data\haarcascades\haarcascade_frontalface_default.xml')
+faceCascade = cv2.CascadeClassifier(r'./haarcascade_frontalface_default.xml')
 
 # Identifica el clasificador del ojo
-eyeCascade = cv2.CascadeClassifier(r'C:\Users\jruiz\Documents\Materias-ago-dic\ia-sistemas\opencv-master\opencv-master\data\haarcascades\haarcascade_eye.xml')
+eyeCascade = cv2.CascadeClassifier(r'./haarcascade_eye.xml')
 
 # Enciende la camara
 cap = cv2.VideoCapture(0)
