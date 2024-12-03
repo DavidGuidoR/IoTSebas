@@ -4,7 +4,6 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 host_name = '192.168.1.147' # Change this to your Raspberry Pi IP address
 host_port = 8000
-led = LED(17)       # define LED pin according to BCM Numbering
 
 class MyServer(BaseHTTPRequestHandler):
 	""" A special implementation of BaseHTTPRequestHander for reading data from
@@ -27,18 +26,7 @@ class MyServer(BaseHTTPRequestHandler):
 			'curl http://server-ip-address:port'
 		"""
 		html = '''
-			<html>
-			<body style="width:960px; margin: 20px auto;">
-			<h1>Welcome to my Raspberry Pi</h1>
-			<p>Current GPU temperature is {}</p>
-			<form action="/" method="POST">
-				Turn LED :
-				<input type="submit" name="submit" value="On">
-				<input type="submit" name="submit" value="Off">
-			</form>
-			</body>
-			</html>
-		'''
+			
 		temp = os.popen("vcgencmd measure_temp").read()
 # 		temp = os.popen("/opt/vc/bin/vcgencmd measure_temp").read()
 		self.do_HEAD()
@@ -51,12 +39,6 @@ class MyServer(BaseHTTPRequestHandler):
 		post_data = self.rfile.read(content_length).decode("utf-8") # Get the data
 		post_data = post_data.split("=")[1] # Only keep the value
 		
-		if post_data == 'On':
-			led.on()
-		else:
-			led.off()
-		print("LED is {}".format(post_data))
-		self._redirect('/') # Redirect back to the root url
 	
 if __name__ == '__main__':
 	http_server = HTTPServer((host_name, host_port), MyServer)
